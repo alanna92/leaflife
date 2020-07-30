@@ -1,21 +1,50 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { MaterialIcons } from '@expo/vector-icons';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
-}
+import Home from './pages/Home';
+import Profile from './pages/Profile';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+const Tab = createBottomTabNavigator();
+
+const MyTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: '#388E3C',
+    card: '#388E3C',
   },
-});
+};
+
+const App: React.FC = () => {
+  return (
+    <NavigationContainer theme={MyTheme}>
+      <Tab.Navigator
+        screenOptions={({ route }) => ({
+          tabBarIcon: ({ focused, color, size }) => {
+            let iconName;
+
+            if (route.name === 'Home') {
+              iconName = 'home';
+            } else if (route.name === 'Profile') {
+              iconName = focused ? 'person' : 'person-outline';
+            }
+
+            // You can return any component that you like here!
+            return <MaterialIcons name={iconName} size={size} color={color} />;
+          },
+        })}
+        tabBarOptions={{
+          activeTintColor: 'white',
+          inactiveTintColor: '#C8E6C9',
+        }}
+      >
+        <Tab.Screen name="Home" component={Home} />
+        <Tab.Screen name="Profile" component={Profile} />
+      </Tab.Navigator>
+    </NavigationContainer>
+  );
+};
+
+export default App;
