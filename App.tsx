@@ -1,7 +1,9 @@
 import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
 import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { MaterialIcons } from '@expo/vector-icons';
+import { StatusBar } from 'expo-status-bar';
 
 import Home from './pages/Home';
 import Profile from './pages/Profile';
@@ -17,9 +19,31 @@ const MyTheme = {
   },
 };
 
+const styles = StyleSheet.create({
+  statusBar: {
+    flex: 1,
+    backgroundColor: '#388E3C',
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+    paddingTop: 30,
+    maxHeight: 90,
+  },
+  statusBarText: {
+    color: '#fff',
+    fontSize: 24,
+    paddingLeft: 10,
+    fontWeight: 'bold',
+    letterSpacing: 2,
+  },
+});
+
 const App: React.FC = () => {
   return (
     <NavigationContainer theme={MyTheme}>
+      <View style={styles.statusBar}>
+        <Text style={styles.statusBarText}>LeafLife</Text>
+        <StatusBar style="light" />
+      </View>
       <Tab.Navigator
         screenOptions={({ route }) => ({
           tabBarIcon: ({ focused, color, size }) => {
