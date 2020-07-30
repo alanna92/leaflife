@@ -1,7 +1,11 @@
 import * as React from 'react';
 import { Image, View, ScrollView, Text } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
 import { Appbar } from 'react-native-paper';
 
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import PostDetails from '../PostDetails';
 import styles from './styles';
 
 interface Post {
@@ -19,6 +23,7 @@ interface Post {
 
 const Home: React.FC = () => {
   const [posts, setPosts] = React.useState<Post[]>([]);
+  const navigation = useNavigation();
 
   React.useEffect(() => {
     setPosts([
@@ -45,6 +50,10 @@ const Home: React.FC = () => {
     ]);
   }, []);
 
+  function handleShowPostDetails(): void {
+    navigation.navigate('PostDetails');
+  }
+
   return (
     <>
       <Appbar.Header>
@@ -70,16 +79,26 @@ const Home: React.FC = () => {
               source={require('../../../assets/posts/post1.png')}
             />
             <View style={styles.row}>
-              <Image
-                style={styles.icon}
-                source={require('../../../assets/icons/liked.png')}
-              />
-              <Text style={styles.iconCount}>{post.likeCount}</Text>
-              <Image
-                style={styles.icon}
-                source={require('../../../assets/icons/comment.png')}
-              />
-              <Text style={styles.iconCount}>{post.commentsCount}</Text>
+              <TouchableOpacity
+                style={styles.row}
+                onPress={handleShowPostDetails}
+              >
+                <Image
+                  style={styles.icon}
+                  source={require('../../../assets/icons/liked.png')}
+                />
+                <Text style={styles.iconCount}>{post.likeCount}</Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.row}
+                onPress={handleShowPostDetails}
+              >
+                <Image
+                  style={styles.icon}
+                  source={require('../../../assets/icons/comment.png')}
+                />
+                <Text style={styles.iconCount}>{post.commentsCount}</Text>
+              </TouchableOpacity>
             </View>
           </View>
         ))}
@@ -88,4 +107,15 @@ const Home: React.FC = () => {
   );
 };
 
-export default Home;
+const HomeStack = createStackNavigator();
+
+const HomeStackScreen: React.FC = () => {
+  return (
+    <HomeStack.Navigator headerMode="none">
+      <HomeStack.Screen name="Home" component={Home} />
+      <HomeStack.Screen name="PostDetails" component={PostDetails} />
+    </HomeStack.Navigator>
+  );
+};
+
+export default HomeStackScreen;
