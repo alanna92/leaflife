@@ -3,23 +3,11 @@ import { Image, View, ScrollView, Text } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { Appbar } from 'react-native-paper';
-
 import { TouchableOpacity } from 'react-native-gesture-handler';
-import PostDetails from '../PostDetails';
-import styles from './styles';
 
-interface Post {
-  id: number;
-  name: string;
-  profilePhoto?: string;
-  postLocation: string;
-  plantSpecies: string;
-  comment: string;
-  postImage?: string;
-  likeCount: number;
-  commentsCount: number;
-  postTime: string;
-}
+import PostDetails from '../PostDetails';
+import Post from '../../models/Post';
+import styles from './styles';
 
 const Home: React.FC = () => {
   const [posts, setPosts] = React.useState<Post[]>([]);
@@ -50,8 +38,8 @@ const Home: React.FC = () => {
     ]);
   }, []);
 
-  function handleShowPostDetails(): void {
-    navigation.navigate('PostDetails');
+  function handleShowPostDetails(post: Post): void {
+    navigation.navigate('PostDetails', { post });
   }
 
   return (
@@ -81,7 +69,7 @@ const Home: React.FC = () => {
             <View style={styles.row}>
               <TouchableOpacity
                 style={styles.row}
-                onPress={handleShowPostDetails}
+                onPress={() => handleShowPostDetails(post)}
               >
                 <Image
                   style={styles.icon}
@@ -91,7 +79,7 @@ const Home: React.FC = () => {
               </TouchableOpacity>
               <TouchableOpacity
                 style={styles.row}
-                onPress={handleShowPostDetails}
+                onPress={() => handleShowPostDetails(post)}
               >
                 <Image
                   style={styles.icon}
