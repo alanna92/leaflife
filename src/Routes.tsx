@@ -6,6 +6,7 @@ import Home from './pages/Home';
 import Profile from './pages/Profile';
 import TreeMap from './pages/TreeMap';
 import Picture from './pages/Picture';
+import SpecieSuggestions from './pages/SpecieSuggestions';
 
 const Tab = createBottomTabNavigator();
 
@@ -34,6 +35,8 @@ const Routes: React.FC = () => {
               iconName = 'map';
             } else if (route.name === 'Add') {
               iconName = 'camera-alt';
+            } else if (route.name === 'Suggestions') {
+              iconName = 'info';
             }
 
             // You can return any component that you like here!
@@ -48,6 +51,7 @@ const Routes: React.FC = () => {
         <Tab.Screen name="Home" component={Home} />
         <Tab.Screen name="Tree Map" component={TreeMap} />
         <Tab.Screen name="Add" component={Picture} />
+        <Tab.Screen name="Suggestions" component={SpecieSuggestions} />
         <Tab.Screen name="Profile" component={Profile} />
       </Tab.Navigator>
     </NavigationContainer>
