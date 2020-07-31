@@ -5,6 +5,7 @@ import { MaterialIcons } from '@expo/vector-icons';
 import Home from './pages/Home';
 import Profile from './pages/Profile';
 import TreeMap from './pages/TreeMap';
+import Picture from './pages/Picture';
 
 const Tab = createBottomTabNavigator();
 
@@ -31,6 +32,8 @@ const Routes: React.FC = () => {
               iconName = focused ? 'person' : 'person-outline';
             } else if (route.name === 'Tree Map') {
               iconName = 'map';
+            } else if (route.name === 'Add') {
+              iconName = 'camera-alt';
             }
 
             // You can return any component that you like here!
@@ -44,6 +47,7 @@ const Routes: React.FC = () => {
       >
         <Tab.Screen name="Home" component={Home} />
         <Tab.Screen name="Tree Map" component={TreeMap} />
+        <Tab.Screen name="Add" component={Picture} />
         <Tab.Screen name="Profile" component={Profile} />
       </Tab.Navigator>
     </NavigationContainer>
