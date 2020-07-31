@@ -34,6 +34,14 @@ const styles = StyleSheet.create({
     bottom: 65,
     backgroundColor: 'white',
   },
+  bottomModal: {
+    justifyContent: 'flex-end',
+    margin: 0,
+  },
+  bottomModalContent: {
+    backgroundColor: 'white',
+    height: '50%',
+  },
 });
 
 export default styles;
